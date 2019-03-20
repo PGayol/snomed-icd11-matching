@@ -152,5 +152,6 @@ let main = function () {
     }
     getRequest(searchIndex);
   });
+  return;
 }
 main();
