@@ -154,6 +154,6 @@ let main = function () {
     }
     getRequest(searchIndex);
   });
-  return;
+  // return;
 }
 main();
