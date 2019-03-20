@@ -2,8 +2,6 @@ let request = require('request');
 if (typeof require !== 'undefined') XLSX = require('xlsx');
 let striptags = require('striptags');
 
-
-
 // Complete neccesary fields:
 //Oauth2 
 const token_endpoint = 'https://icdaccessmanagement.who.int/connect/token';
@@ -46,6 +44,8 @@ sourceWorksheet['D1'].v = 'ICD11 match'
 sourceWorksheet['E1'] = sourceWorksheet['E1'] ? sourceWorksheet['E1'] : {};
 sourceWorksheet['E1'].t = 's';
 sourceWorksheet['E1'].v = 'Score'
+
+let cells_letters = ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 let main = function () {
 
@@ -110,11 +110,33 @@ let main = function () {
             });
             if (info.DestinationEntities.length == 0) {
               sourceWorksheet[resultCell].v = 'No match';
+              XLSX.writeFile(sourceWorkbook, 'mini-snomed-list-results-small.xls');
+              XLSX.writeFile(sourceWorkbook, 'mini-snomed-list-results-large.xls');
             } else {
               sourceWorksheet[resultCell].v = striptags(info.DestinationEntities[0].Title);
               sourceWorksheet[scoreCell].v = info.DestinationEntities[0].Score;
+              XLSX.writeFile(sourceWorkbook, 'mini-snomed-list-results-small.xls');
+              XLSX.writeFile(sourceWorkbook, 'mini-snomed-list-results-large.xls');
+              if (info.DestinationEntities.length > 1) {
+                let i = 1;
+                let letter = 0;
+                while (i < info.DestinationEntities.length && i < 9) {
+                  //extra text cell
+                  sourceWorksheet[cells_letters[letter] + searchIndex] = sourceWorksheet[cells_letters[letter] + searchIndex] ? sourceWorksheet[cells_letters[letter] + searchIndex] : {};
+                  sourceWorksheet[cells_letters[letter] + searchIndex].t = 's';
+                  sourceWorksheet[cells_letters[letter] + searchIndex].v = striptags(info.DestinationEntities[i].Title);
+                  letter++;
+                  //extra score cell
+                  sourceWorksheet[cells_letters[letter] + searchIndex] = sourceWorksheet[cells_letters[letter] + searchIndex] ? sourceWorksheet[cells_letters[letter] + searchIndex] : {};
+                  sourceWorksheet[cells_letters[letter] + searchIndex].t = 'n';
+                  sourceWorksheet[cells_letters[letter] + searchIndex].v = info.DestinationEntities[i].Score;               
+                  letter++;
+                  i++;
+                }
+                XLSX.writeFile(sourceWorkbook, 'mini-snomed-list-results-large.xls');
+              }
             }
-            XLSX.writeFile(sourceWorkbook, 'mini-snomed-list-results.xls');
+            // XLSX.writeFile(sourceWorkbook, 'mini-snomed-list-results.xls');
 
             // console.log("Best match for SNOMEDCT term:'" + worksheet[cell].v + "' is:" + info.DestinationEntities[0].Title);
             // let i = 0;
