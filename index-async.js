@@ -1,5 +1,7 @@
 let request = require('request');
 if (typeof require !== 'undefined') XLSX = require('xlsx');
+let striptags = require('striptags');
+
 
 
 // Complete neccesary fields:
@@ -109,7 +111,7 @@ let main = function () {
             if (info.DestinationEntities.length == 0) {
               sourceWorksheet[resultCell].v = 'No match';
             } else {
-              sourceWorksheet[resultCell].v = info.DestinationEntities[0].Title;
+              sourceWorksheet[resultCell].v = striptags(info.DestinationEntities[0].Title);
               sourceWorksheet[scoreCell].v = info.DestinationEntities[0].Score;
             }
             XLSX.writeFile(sourceWorkbook, 'mini-snomed-list-results.xls');
