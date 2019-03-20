@@ -49,7 +49,7 @@ sourceWorksheet['E1'].v = 'Score'
 
 let cells_letters = ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
-let main = function(searchIndex) {
+let main = function() {
   console.log('Search index is : ' + searchIndex);
 
   request.post(options, (error, res, body) => {
@@ -74,7 +74,7 @@ let main = function(searchIndex) {
       }
     }
 
-    let getRequest = function (searchIndex) {
+    let getRequest = function () {
       if (searchIndex == finalIndex) {
         return;
       } else {
