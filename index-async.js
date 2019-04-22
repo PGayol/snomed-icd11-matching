@@ -2,8 +2,8 @@ let request = require('request');
 if (typeof require !== 'undefined') XLSX = require('xlsx');
 let striptags = require('striptags');
 
-// Complete neccesary fields:
-//Oauth2 
+// Following variables must be setted before running:
+//Oauth2 (1)
 const token_endpoint = 'https://icdaccessmanagement.who.int/connect/token';
 const client_id = '***REMOVED***';
 const client_secret = '***REMOVED***';
@@ -12,7 +12,7 @@ const grant_type = 'client_credentials';
 let access_token;
 
 
-//XLS source details
+//XLS source details (2)
 let sourceWorkbook = XLSX.readFile('mini-snomed-list.xls');
 let sourceWorkbook2 = XLSX.readFile('mini-snomed-list.xls');
 let sourceWorksheet = sourceWorkbook.Sheets['Hoja1'];
@@ -20,7 +20,8 @@ let sourceWorksheet2 = sourceWorkbook2.Sheets['Hoja1'];
 let searchIndex = 2; //if data matrix starts in row 2
 let finalIndex = 6194 + 2; // #ConceptsToSearch + 2
 
-//Options object to request token
+//End
+
 let options = {
   url: token_endpoint,
   form: {
@@ -47,7 +48,7 @@ sourceWorksheet['E1'] = sourceWorksheet['E1'] ? sourceWorksheet['E1'] : {};
 sourceWorksheet['E1'].t = 's';
 sourceWorksheet['E1'].v = 'Score'
 
-let cells_letters = ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+let cells_letters = ['F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' '];
 
 let main = function() {
   console.log('Search index is : ' + searchIndex);
@@ -131,7 +132,7 @@ let main = function() {
               if (info.DestinationEntities.length > 1) {
                 let i = 1;
                 let letter = 0;
-                while (i < info.DestinationEntities.length && i < 9) {
+                while (i < info.DestinationEntities.length && i < 9 && cells_letters[letter] != ' ') {
                   //extra text cell
                   sourceWorksheet2[cells_letters[letter] + searchIndex] = sourceWorksheet2[cells_letters[letter] + searchIndex] ? sourceWorksheet2[cells_letters[letter] + searchIndex] : {};
                   sourceWorksheet2[cells_letters[letter] + searchIndex].t = 's';
