@@ -1,3 +1,5 @@
+//Do not use - testing purposes only
+
 let request = require('request');
 if (typeof require !== 'undefined') XLSX = require('xlsx');
 
@@ -5,8 +7,8 @@ if (typeof require !== 'undefined') XLSX = require('xlsx');
 // Complete neccesary fields:
 //Oauth2 
 const token_endpoint = 'https://icdaccessmanagement.who.int/connect/token';
-const client_id = '***REMOVED***';
-const client_secret = '***REMOVED***';
+const client_id = '' ; // Your client ID Here
+const client_secret = '' ; // Your client secret here
 const scope = 'icdapi_access';
 const grant_type = 'client_credentials';
 let access_token;

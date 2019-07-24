@@ -5,8 +5,8 @@ let striptags = require('striptags');
 // Following variables must be setted before running:
 //Oauth2 (1)
 const token_endpoint = 'https://icdaccessmanagement.who.int/connect/token';
-const client_id = '***REMOVED***';
-const client_secret = '***REMOVED***';
+const client_id = '' ; // Your client ID Here
+const client_secret = '' ; // Your client secret here
 const scope = 'icdapi_access';
 const grant_type = 'client_credentials';
 let access_token;
