@@ -6,7 +6,7 @@ Tool for matching SNOMEDCT concepts with ICD11, using public ICD API (https://ic
 - Prerequisistes:
   - Node v8.12.0
   - NPM v6.4.1
-  - SNOMEDCT concepts must be in an .xls/.xlsx file following the format of the "mini-snomed-list.xls" file. File cannot contain any       special character, otherwise API request may fail.
+  - SNOMEDCT concepts must be in an .xls/.xlsx file following the format of the "mini-snomed-list.xls" file. File cannot contain any       special character, otherwise API request may fail. See the file for reference.
   - You must complete your OAuth credentials inside index-asnyc.js file, as well as some other properties of your .xls/.xlsx input file.        Look the code in index-asnyc.js for details.
 
 - Run:
